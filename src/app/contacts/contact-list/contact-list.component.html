@@ -7,12 +7,10 @@
           <button class="btn btn-success pull-right">New Contact</button>
         </div>
         <div class="panel-body">
-         <cms-contact-item *ngFor="let contactEl of contacts" [contact]="contactEl" (click)="onSelected(contactEl)"></cms-contact-item>
+          <cms-contact-item *ngFor="let contactEl of contacts" [contact]="contactEl" (click)="onSelected(contactEl)">
+          </cms-contact-item>
         </div>
-
-
       </div>
     </div>
   </div>
-
 </div>
