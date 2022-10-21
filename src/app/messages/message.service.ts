@@ -30,10 +30,10 @@ export class MessageService {
     return message;
   }
 
-  // addMessage(message: Message) {
-  //   this.messages.push(message);
-  //   // this.messageChangedEvent.emit(this.messages.slice());
-  // }
+  addMessage(messages: Message[]) {
+    this.messages.push(...messages);
+    // this.messageChangedEvent.emit(this.messages.slice());
+  }
 }
 
 

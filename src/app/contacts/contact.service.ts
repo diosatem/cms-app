@@ -6,7 +6,7 @@ import { MOCKCONTACTS } from './MOCKCONTACTS';
   providedIn: 'root'
 })
 export class ContactService {
-  contacts: Contact[] = [];
+  private contacts: Contact[] = [];
   contactSelectedEvent = new EventEmitter<Contact>();
 
   constructor() {
@@ -18,14 +18,25 @@ export class ContactService {
   }
 
   getContact(id: string): Contact {
-    let contact: Contact;
-    this.contacts.forEach(item => {
-      if (item.id === id) {
-        contact = item;
-      } else {
-        return null;
-      }
-    });
-    return contact;
+    let contactEl: Contact;
+    // this.contacts.forEach(item => {
+    //   if (item.id === id) {
+    //     contact = item;
+    //   } else {
+    //     return null;
+    //   }
+    // });
+    // return contact;
+  
+
+  for (const contact of this.contacts) {
+    if (contact.id === id) {
+      contactEl = contact;
+    } else {
+      return null;
+    }
+  };
+  return contactEl;
   }
 }
+
