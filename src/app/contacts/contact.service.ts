@@ -3,11 +3,13 @@ import { Contact } from './contact-list/contact.model';
 import { MOCKCONTACTS } from './MOCKCONTACTS';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContactService {
-  private contacts: Contact[] = [];
-  contactSelectedEvent = new EventEmitter<Contact>();
+  contacts: Contact[];
+  // contactSelectedEvent = new EventEmitter<Contact>();
+  contactSelectedEvent: EventEmitter<Contact> = new EventEmitter();
+  contactChangedEvent: EventEmitter<Contact[]> = new EventEmitter();
 
   constructor() {
     this.contacts = MOCKCONTACTS;
@@ -18,7 +20,7 @@ export class ContactService {
   }
 
   getContact(id: string): Contact {
-    let contactEl: Contact;
+    // let contactEl: Contact;
     // this.contacts.forEach(item => {
     //   if (item.id === id) {
     //     contact = item;
@@ -29,14 +31,33 @@ export class ContactService {
     // return contact;
   
 
-  for (const contact of this.contacts) {
-    if (contact.id === id) {
-      contactEl = contact;
-    } else {
-      return null;
+  // for (const contact of this.contacts) {
+  //   if (contact.id === id) {
+  //     contactEl = contact;
+  //   } else {
+  //     return null;
+  //   }
+  // };
+  // return contactEl;
+
+for (let i = 0; i < this.contacts.length; i++) {
+const element = this.contacts[i];
+if (element.id === id) {
+  return element;
+}
+}
+return null;
+
+  }
+
+  deleteContact(contact: Contact) {
+    if (!contact) {
+      return;
     }
-  };
-  return contactEl;
+    const pos = this.contacts.indexOf(contact);
+    if (pos < 0) {
+      return;
+    }
   }
 }
 
