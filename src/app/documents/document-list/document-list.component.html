@@ -6,8 +6,8 @@
     </div>
   </div>
   <div class="panel-body">
-    <div class="center-panel">
-      <cms-document-item *ngFor="let documentEl of documents" [document]="documentEl" (click)="onSelectedDocument(documentEl)"></cms-document-item>
+    <div class="center-panel" routerLinkActive="active">
+      <cms-document-item *ngFor="let documentEl of documents" [document]="documentEl" (click)="onSelectedDocument(documentEl)"  style="cursor: pointer;"></cms-document-item>
     </div>
   </div>
 

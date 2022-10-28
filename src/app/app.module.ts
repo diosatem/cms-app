@@ -20,6 +20,7 @@ import { ContactService } from 'app/contacts/contact.service';
 import { MessageService } from './messages/message.service';
 import { DocumentService } from './documents/document.service';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { RouterModule } from '@angular/router';
     
   ],
   imports: [
-    BrowserModule, FormsModule, RouterModule
+    BrowserModule, FormsModule, RouterModule, AppRoutingModule
   ],
   providers: [ContactService, MessageService, DocumentService],
   bootstrap: [AppComponent]
