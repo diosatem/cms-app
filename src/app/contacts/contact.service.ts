@@ -29,25 +29,24 @@ export class ContactService {
     //   }
     // });
     // return contact;
-  
 
-  // for (const contact of this.contacts) {
-  //   if (contact.id === id) {
-  //     contactEl = contact;
-  //   } else {
-  //     return null;
-  //   }
-  // };
-  // return contactEl;
 
-for (let i = 0; i < this.contacts.length; i++) {
-const element = this.contacts[i];
-if (element.id === id) {
-  return element;
-}
-}
-return null;
+    // for (const contact of this.contacts) {
+    //   if (contact.id === id) {
+    //     contactEl = contact;
+    //   } else {
+    //     return null;
+    //   }
+    // };
+    // return contactEl;
 
+    for (let i = 0; i < this.contacts.length; i++) {
+      const element = this.contacts[i];
+      if (element.id === id) {
+        return element;
+      }
+    }
+    return null;
   }
 
   deleteContact(contact: Contact) {
@@ -58,6 +57,8 @@ return null;
     if (pos < 0) {
       return;
     }
+    this.contacts.splice(pos, 1);
+    this.contactChangedEvent.emit(this.contacts.slice());
   }
 }
 

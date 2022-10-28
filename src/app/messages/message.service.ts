@@ -11,7 +11,7 @@ export class MessageService {
   // messageChangedEvent = new EventEmitter<Message>();
   messageChangedEvent: EventEmitter<Message[]> = new EventEmitter();
 
-  constructor(private contactService: ContactService) {
+  constructor() {
     this.messages = MOCKMESSAGES;
   }
 
@@ -41,8 +41,8 @@ export class MessageService {
     return null;
   }
 
-  addMessage(messages: Message) {
-    this.messages.push(messages);
+  addMessage(message: Message) {
+    this.messages.push(message);
     this.messageChangedEvent.emit(this.messages.slice());
   }
 }
