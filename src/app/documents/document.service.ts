@@ -7,26 +7,26 @@ import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
   providedIn: 'root'
 })
 export class DocumentService {
-private documents: Document[];
-documentSelectedEvent = new EventEmitter<Document>();
+  private documents: Document[];
+  documentSelectedEvent = new EventEmitter<Document>();
 
   constructor() {
     this.documents = MOCKDOCUMENTS;
-   }
-
-   getDocuments(): Document[] {
-return this.documents.slice();
-   }
-
-   getDocument(id: string | number ): Document {
-let document: Document;
-this.documents.forEach(document => {
-  if (document.id === id) {
-   document = document;
-  } else {
-    return null;
   }
-});
-return document;
-   }
+
+  getDocuments(): Document[] {
+    return this.documents.slice();
+  }
+
+  getDocument(id: string | number): Document {
+    let document: Document;
+    this.documents.forEach(document => {
+      if (document.id === id) {
+        document = document;
+      } else {
+        return null;
+      }
+    });
+    return document[id];
+  }
 }

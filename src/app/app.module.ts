@@ -21,6 +21,7 @@ import { MessageService } from './messages/message.service';
 import { DocumentService } from './documents/document.service';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { AppRoutingModule } from './app-routing.module';
     MessageItemComponent,
     MessageEditComponent,
     MessageListComponent, 
-    DropDownDirective,
+    DropDownDirective, DocumentEditComponent,
     
   ],
   imports: [
