@@ -11,9 +11,8 @@ export class DocumentService {
   documentSelectedEvent = new EventEmitter<Document>();
   documentChangedEvent = new EventEmitter<Document[]>();
 
-
   constructor() {
-    this.documents = MOCKDOCUMENTS;   
+    this.documents = MOCKDOCUMENTS;
   }
 
   getDocuments(): Document[] {
@@ -23,34 +22,49 @@ export class DocumentService {
   getDocument(id: string | number): Document {
     console.log("Document service: " + this.documents)
     let document: Document;
-    this.documents.forEach(document => {
-      if (document.id === id) {
-        document = document;
-      } else {
-        return null;
+    // this.documents.forEach(document => {
+    //   if (document.id === id) {
+    //     document = document;
+    //   } else {
+    //     return null;
+    //   }
+    // });
+    // return document;
+
+    //   for (let d of this.documents) {
+    //     if (d.id === id) {
+    //       return d;
+    //     }
+    //   }
+    //   return null;
+    // }
+
+    this.documents.forEach(element => {
+      if (element.id === id) {
+        document = element;
       }
     });
     return document;
   }
 
-//   for (let i = 0; i < this.documents.length; i++) {
-//     const element = this.documents[i];
-//     if (element.id === id) {
-//       return element;
-//     }
-//   }
-//   return null;
-// }
+  //   for (let i = 0; i < this.documents.length; i++) {
+  //     const element = this.documents[i];
+  //     if (element.id === id) {
+  //       return element;
+  //     }
+  //   }
+  //   return null;
+  // }
 
-deleteDocument(document: Document) {
-  if (!document) {
-     return;
+  deleteDocument(document: Document) {
+    if (!document) {
+      return;
+    }
+    const pos = this.documents.indexOf(document);
+    if (pos < 0) {
+      return;
+    }
+    this.documents.splice(pos, 1);
+    this.documentChangedEvent.emit(this.documents.slice());
   }
-  const pos = this.documents.indexOf(document);
-  if (pos < 0) {
-     return;
-  }
-  this.documents.splice(pos, 1);
-  this.documentChangedEvent.emit(this.documents.slice());
-}
 }

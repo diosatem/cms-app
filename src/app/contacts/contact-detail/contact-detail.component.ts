@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Contact } from '../contact.model';
+import { ContactService } from '../contact.service';
 
 @Component({
   selector: 'cms-contact-detail',
@@ -7,16 +9,24 @@ import { Contact } from '../contact.model';
   styleUrls: ['./contact-detail.component.css']
 })
 export class ContactDetailComponent implements OnInit {
-  contacts: Contact[] = [
-    // new Contact(1, 'R. Kent Jackson', 'jacksonk@byui.edu', '208-496-3771', '../../assets/images/jacksonk.jpg', 'null'),
-    // new Contact(2, 'Rex Barzee', 'barzeer@byui.edu', '208-496-3768', '../../assets/images/barzeer.jpg', 'null'),
-  ];
+  contact: Contact;
+  contacts: Contact[] = [];
+  id: string;
 
-  @Input() contact: Contact;
-
-  constructor() { }
+  constructor(private contactService: ContactService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.id = params['id'];
+      this.contact = this.contactService.getContact(this.id);
+    });
   }
 
+  onDelete() {
+    this.contactService.deleteContact(this.contact);
+    this.router.navigate(['/contacts']);
+  }
 }
+

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-6">
 
-      <a routerLink="contact-detail" class="list-group-item clearfix">
+      <a class="list-group-item clearfix">
         <div class="panel panel-default">
           <div class="panel-heading panel-heading-wrapper">
             <h3 class="panel-title">{{ contact.name }}</h3>
@@ -12,8 +12,8 @@
                 <img [src]="contact.imageUrl" alt="{{ contact.name }}" class="img-responsive" style="max-height: 80px;">
               </div>
               <div class="col-xs-7">
-                <button class="btn btn-primary">Edit</button>
-                <button class="btn btn-danger">Delete</button>
+                <a class="btn btn-primary" [routerLink]="['edit']">Edit</a>
+                <a class="btn btn-danger" (click)="onDelete()">Delete</a>
               </div>
             </div>
 

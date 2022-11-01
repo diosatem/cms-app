@@ -41,10 +41,18 @@ export class ContactService {
     // };
     // return contactEl;
 
-    for (let i = 0; i < this.contacts.length; i++) {
-      const element = this.contacts[i];
-      if (element.id === id) {
-        return element;
+    //   for (let i = 0; i < this.contacts.length; i++) {
+    //     const element = this.contacts[i];
+    //     if (element.id === id) {
+    //       return element;
+    //     }
+    //   }
+    //   return null;
+    // }
+
+    for (let contact of this.contacts) {
+      if (contact.id === id) {
+        return contact;
       }
     }
     return null;
