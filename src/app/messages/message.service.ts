@@ -1,5 +1,4 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { ContactService } from 'app/contacts/contact.service';
 import { Message } from './message-list/message.model';
 import { MOCKMESSAGES } from './MOCKMESSAGES';
 
