@@ -11,7 +11,7 @@ export class DocumentService {
   documentSelectedEvent = new EventEmitter<Document>();
 
   constructor() {
-    this.documents = MOCKDOCUMENTS;
+    this.documents = MOCKDOCUMENTS;   
   }
 
   getDocuments(): Document[] {
@@ -19,6 +19,7 @@ export class DocumentService {
   }
 
   getDocument(id: string | number): Document {
+    console.log("Document service: " + this.documents)
     let document: Document;
     this.documents.forEach(document => {
       if (document.id === id) {
@@ -27,6 +28,15 @@ export class DocumentService {
         return null;
       }
     });
-    return document[id];
+    return document;
   }
+
+//   for (let i = 0; i < this.documents.length; i++) {
+//     const element = this.documents[i];
+//     if (element.id === id) {
+//       return element;
+//     }
+//   }
+//   return null;
+// }
 }

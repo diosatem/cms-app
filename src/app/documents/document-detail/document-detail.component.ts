@@ -11,7 +11,7 @@ import { DocumentService } from '../document.service';
 })
 export class DocumentDetailComponent implements OnInit {
   document: Document;
-  id: number;
+  id: string;
   nativeWindow: any;
 
   constructor(private documentService: DocumentService,
@@ -24,8 +24,10 @@ export class DocumentDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(
       (params: Params) => {
-        this.id = +params['id'];
+        this.id = params['id'];
         this.document = this.documentService.getDocument(this.id);
+        // console.log("This document: " + this.document);
+        // console.log("This route: " + this.route);
       }
     );
   }
