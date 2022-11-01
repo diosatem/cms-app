@@ -1,4 +1,4 @@
-import { Contact } from "./contact-list/contact.model";
+import { Contact } from "./contact.model";
 
 export const MOCKCONTACTS: Contact[] = [
   // individual contacts

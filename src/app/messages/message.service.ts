@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Message } from './message-list/message.model';
+import { Message } from './message.model';
 import { MOCKMESSAGES } from './MOCKMESSAGES';
 
 @Injectable({

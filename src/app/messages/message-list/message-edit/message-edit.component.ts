@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MessageService } from '../../message.service';
-import { Message } from '../message.model';
+import { Message } from '../../message.model';
 
 
 @Component({

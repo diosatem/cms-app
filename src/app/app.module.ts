@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
 import { ContactService } from './contacts/contact.service';
+import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { ContactService } from './contacts/contact.service';
     MessageItemComponent,
     MessageEditComponent,
     MessageListComponent, 
-    DropDownDirective, DocumentEditComponent,
+    DropDownDirective, DocumentEditComponent, ContactEditComponent,
     
   ],
   imports: [
