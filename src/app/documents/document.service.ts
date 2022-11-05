@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Document } from './document.model';
 import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -8,11 +9,16 @@ import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 })
 export class DocumentService {
   private documents: Document[];
-  documentSelectedEvent = new EventEmitter<Document>();
-  documentChangedEvent = new EventEmitter<Document[]>();
+  documentSelectedEvent = new Subject<Document>();
+  documentChangedEvent = new Subject<Document[]>();
+
+  documentListChangedEvent = new Subject<Document[]>();
+  private maxDocumentId: number;
+
 
   constructor() {
     this.documents = MOCKDOCUMENTS;
+    this.maxDocumentId = this.getMaxId();
   }
 
   getDocuments(): Document[] {
@@ -22,23 +28,6 @@ export class DocumentService {
   getDocument(id: string | number): Document {
     console.log("Document service: " + this.documents)
     let document: Document;
-    // this.documents.forEach(document => {
-    //   if (document.id === id) {
-    //     document = document;
-    //   } else {
-    //     return null;
-    //   }
-    // });
-    // return document;
-
-    //   for (let d of this.documents) {
-    //     if (d.id === id) {
-    //       return d;
-    //     }
-    //   }
-    //   return null;
-    // }
-
     this.documents.forEach(element => {
       if (element.id === id) {
         document = element;
@@ -47,14 +36,43 @@ export class DocumentService {
     return document;
   }
 
-  //   for (let i = 0; i < this.documents.length; i++) {
-  //     const element = this.documents[i];
-  //     if (element.id === id) {
-  //       return element;
-  //     }
-  //   }
-  //   return null;
-  // }
+  getMaxId(): number {
+    let maxId = 0;
+
+    this.documents.forEach(element => {
+      let currentId = +element.id;
+      if (currentId > maxId) {
+        maxId = currentId;
+      }
+    });
+    return maxId;
+  }
+
+  addDocument(newDocument: Document) {
+    if (!newDocument) {
+      return;
+    }
+    this.maxDocumentId++;
+    newDocument.id = this.maxDocumentId;
+    this.documents.push(newDocument);
+    let documentListClone = this.documents.slice();
+    this.documentChangedEvent.next(documentListClone);
+  }
+
+  updateDocument(originalDocument: Document, newDocument: Document) {
+    if (!originalDocument || !newDocument) {
+      return;
+    }
+
+    let pos = this.documents.indexOf(originalDocument);
+    if (pos < 0) {
+      return;
+    }
+    newDocument.id = originalDocument.id;
+    this.documents[pos] = newDocument;
+    let documentListClone = this.documents.slice();
+    this.documentListChangedEvent.next(documentListClone);
+  }
 
   deleteDocument(document: Document) {
     if (!document) {
@@ -65,6 +83,9 @@ export class DocumentService {
       return;
     }
     this.documents.splice(pos, 1);
-    this.documentChangedEvent.emit(this.documents.slice());
+    // this.documentChangedEvent.emit(this.documents.slice());
+    let documentListClone = this.documents.slice();
+    this.documentChangedEvent.next(documentListClone);
   }
+
 }
