@@ -69,16 +69,6 @@ export class ContactEditComponent implements OnInit {
     this.router.navigate(['/contacts']);
   }
 
-  addToGroup($event: any) {
-    const selectedContact: Contact = $event.dragData;
-    const invalidGroupContact = this.isInvalidContact(selectedContact);
-    if (invalidGroupContact) {
-      return;
-    }
-
-    this.groupContacts.push(selectedContact);
-  }
-
   isInvalidContact(newContact: Contact) {
     if (!newContact) {
       this.isAlreadyInGroup = true;
@@ -98,6 +88,16 @@ export class ContactEditComponent implements OnInit {
     }
 
     return false;
+  }
+  
+  addToGroup($event: any) {
+    const selectedContact: Contact = $event.dragData;
+    const invalidGroupContact = this.isInvalidContact(selectedContact);
+    if (invalidGroupContact) {
+      return;
+    }
+
+    this.groupContacts.push(selectedContact);
   }
 
   onRemoveItem(index: number) {

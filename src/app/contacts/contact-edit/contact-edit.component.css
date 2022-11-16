@@ -1,13 +1,14 @@
-/* .invalid.ng-invalid.ng-dirty {
-  border: 1px solid red;
-} */
-
-.required.ng-invalid {
+.invalid.ng-invalid.ng-dirty {
   border: 1px solid red;
 }
 
+/* .required.ng-invalid {
+  border: 1px solid red;
+} */
 
-
+input.ng-invalid {
+    border: 1px solid red;
+  }
 
 /* input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
     border: 1px solid red;
