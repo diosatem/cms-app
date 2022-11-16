@@ -1,9 +1,7 @@
 @media (min-width: 1000px) {
-  .col-wrap {
-    padding-left: 100px;
-  }  
-  .col-md-4 {
-    padding-left: 150px;
+ 
+  .col-md-5 {
+    margin-left: 80px;
   }
 }
 
