@@ -10,8 +10,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit, OnDestroy {
-  contacts: Contact[] = [];
+  public contacts: Contact[];
   private subscription: Subscription;
+  term: String;
 
   constructor(private contactService: ContactService,
     private router: Router,
@@ -27,6 +28,10 @@ export class ContactListComponent implements OnInit, OnDestroy {
 
   onNewContact() {
     this.router.navigate(['new'], { relativeTo: this.route });
+  }
+
+  search(value: string) {
+    this.term = value;
   }
 
   ngOnDestroy(): void {
