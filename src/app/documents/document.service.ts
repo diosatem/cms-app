@@ -5,6 +5,11 @@ import { Subject } from 'rxjs';
 import { Document } from './document.model';
 import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 
+interface Response {
+  message: string;
+  documents: Document[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,8 +25,6 @@ export class DocumentService {
     this.documents = MOCKDOCUMENTS;
     this.maxDocumentId = this.getMaxId();
   }
-
-
 
   storeDocuments() {
     let stringifyDocuments = JSON.stringify(this.documents);
@@ -42,7 +45,7 @@ export class DocumentService {
   getDocuments(): any {
     // return this.documents.slice();
     this.http
-      .get('https://cms-app-4ba54-default-rtdb.firebaseio.com/documents.json')
+      .get('http://localhost:3000/documents')
       .subscribe(
         (documents: Document[]) => {
 
@@ -84,16 +87,36 @@ export class DocumentService {
     return maxId;
   }
 
-  addDocument(newDocument: Document) {
-    if (!newDocument) {
+  // addDocument(newDocument: Document) {
+  //   if (!newDocument) {
+  //     return;
+  //   }
+  //   this.maxDocumentId++;
+  //   newDocument.id = this.maxDocumentId;
+  //   this.documents.push(newDocument);
+  //   let documentListClone = this.documents.slice();
+  //   // this.documentChangedEvent.next(documentListClone);
+  //   this.storeDocuments();
+  // }
+
+  addDocument(document: Document) {
+    
+    if (!document) {
       return;
     }
-    this.maxDocumentId++;
-    newDocument.id = this.maxDocumentId;
-    this.documents.push(newDocument);
-    let documentListClone = this.documents.slice();
-    // this.documentChangedEvent.next(documentListClone);
-    this.storeDocuments();
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http
+      .post<{ message: string; document: Document; id: string }>(
+        'http://localhost:3000/documents',
+        document,
+        { headers: headers }
+      )
+      .subscribe((responseData) => {
+        // document.id = responseData.id;
+        this.documents.push(document);
+        this.documentChangedEvent.next([...this.documents]);
+      });
   }
 
   updateDocument(originalDocument: Document, newDocument: Document) {

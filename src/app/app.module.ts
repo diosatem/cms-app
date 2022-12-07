@@ -14,8 +14,8 @@ import { DocumentListComponent } from './documents/document-list/document-list.c
 import { DocumentItemComponent } from './documents/document-list/document-item/document-item.component';
 import { DocumentDetailComponent } from './documents/document-detail/document-detail.component';
 import { MessagesComponent } from './messages/messages.component';
-import { MessageItemComponent } from './messages/message-list/message-item/message-item.component';
-import { MessageEditComponent } from './messages/message-list/message-edit/message-edit.component';
+import { MessageItemComponent } from './messages/message-item/message-item.component';
+import { MessageEditComponent } from './messages/message-edit/message-edit.component';
 import { MessageListComponent } from './messages/message-list/message-list.component';
 import { DropDownDirective } from './directives/dropdown.directive';
 import { MessageService } from './messages/message.service';
