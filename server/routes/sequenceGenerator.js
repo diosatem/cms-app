@@ -4,7 +4,7 @@ var maxDocumentId;
 var maxMessageId;
 var maxContactId;
 var sequenceId = null;
-
+//sequence
 function SequenceGenerator() {
 
   Sequence.findOne()

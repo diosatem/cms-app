@@ -51,12 +51,12 @@ export class DocumentService {
 
           this.documents = documents;
 
-          this.maxDocumentId = this.getMaxId();
+          // this.maxDocumentId = this.getMaxId();
           this.documents.sort(
             (a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0
           );
-          this.documentChangedEvent.next(this.documents.slice());
-          console.log(documents);
+          this.documentChangedEvent.next([...this.documents]);
+          // console.log(documents);
         },
         (error: any) => {
           console.log(error.message);
@@ -100,10 +100,13 @@ export class DocumentService {
   // }
 
   addDocument(document: Document) {
-    
+
     if (!document) {
       return;
     }
+
+    // make sure id of the new Document is empty
+    document.id = '';
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
@@ -113,9 +116,9 @@ export class DocumentService {
         { headers: headers }
       )
       .subscribe((responseData) => {
-        // document.id = responseData.id;
-        this.documents.push(document);
-        this.documentChangedEvent.next([...this.documents]);
+        // add new document to documents
+        this.documents.push(responseData.document);
+        this.sortAndSend();
       });
   }
 
@@ -124,29 +127,46 @@ export class DocumentService {
       return;
     }
 
-    let pos = this.documents.indexOf(originalDocument);
+    const pos = this.documents.findIndex(d => d.id === originalDocument.id);
+
     if (pos < 0) {
       return;
     }
+
+    // set the id of the new Document to the id of the old Document
     newDocument.id = originalDocument.id;
-    this.documents[pos] = newDocument;
-    let documentListClone = this.documents.slice();
-    // this.documentListChangedEvent.next(documentListClone);
-    this.storeDocuments();
+    newDocument._id = originalDocument._id;
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // update database
+    this.http.put('http://localhost:3000/documents/' + originalDocument.id,
+      newDocument, { headers: headers })
+      .subscribe(
+        (response: Response) => {
+          this.documents[pos] = newDocument;
+          this.sortAndSend();
+        }
+      );
   }
 
   deleteDocument(document: Document) {
     if (!document) {
       return;
     }
-    const pos = this.documents.indexOf(document);
+    const pos = this.documents.findIndex(d => d.id === document.id);
+
     if (pos < 0) {
       return;
     }
-    this.documents.splice(pos, 1);
-    // this.documentChangedEvent.emit(this.documents.slice());
-    let documentListClone = this.documents.slice();
-    // this.documentChangedEvent.next(documentListClone);
-    this.storeDocuments();
+
+    // delete from database
+    this.http.delete('http://localhost:3000/documents/' + document.id)
+      .subscribe(
+        (response: Response) => {
+          this.documents.splice(pos, 1);
+          this.sortAndSend();
+        }
+      );
   }
 }
